@@ -1,3 +1,14 @@
+.searchInput {
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.searchInput input {
+    display: block;
+    width: 100%;
+}
+
+
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .wrapper {
