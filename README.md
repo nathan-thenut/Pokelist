@@ -6,3 +6,4 @@ A Website that displays the data of your Pokemon.
   * Implement searching by type, name, nature and item
 * ~~Read data from a json file~~
 * ~~Create a script to make a json file with the data~~
+* Make a fitting favicon
