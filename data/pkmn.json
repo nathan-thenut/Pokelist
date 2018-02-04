@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Elekid",
+    "dexno": "239",
+    "type_one": "Elektro",
+    "type_two": "",
+    "nature": "Mäßig",
+    "ability": "Elektro-Erzeuger",
+    "item": "Leben-Orb",
+    "DV": {
+      "KP": "31",
+      "ATK": "31",
+      "DEF": "31",
+      "SP.ATK": "31",
+      "SP.DEF": "31",
+      "INIT": "31"
+    },
+    "EV": {
+      "KP": "0",
+      "ATK": "252",
+      "DEF": "0",
+      "SP.ATK": "0",
+      "SP.DEF": "0",
+      "INIT": "252"
+    },
+    "attacks": [
+      "Donnerschock",
+      "Donnerwelle",
+      "Donner",
+      "Ladestrahl"
+    ],
+    "gif": "239.gif"
+  },
+  {
+    "name": "Knogga",
+    "dexno": "105",
+    "type_one": "Feuer",
+    "type_two": "Geist",
+    "nature": "Hart",
+    "ability": "Blitzfänger",
+    "item": "Kampfknochen",
+    "DV": {
+      "KP": "31",
+      "ATK": "31",
+      "DEF": "31",
+      "SP.ATK": "-",
+      "SP.DEF": "31",
+      "INIT": "31"
+    },
+    "EV": {
+      "KP": "0",
+      "ATK": "252",
+      "DEF": "0",
+      "SP.ATK": "0",
+      "SP.DEF": "4",
+      "INIT": "252"
+    },
+    "attacks": [
+      "Schattenknochen",
+      "Knochmerang",
+      "Flammenblitz",
+      "Irrlicht/Scanner/Tarnsteine"
+    ],
+    "gif": "105a.gif"
+  }
+]

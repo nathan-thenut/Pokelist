@@ -1,15 +1,144 @@
-function fillPokemonList(search) {
-    
+function getPkmnData(url, search) {
+    $.getJSON(url, function(json) {
+        console.log(json);
+        fillPokemonList(search, json);
+    });
 
 }
 
-function getAllPokemon() {
+
+function createElemWithHtml(tag, html) {
+    var x = document.createElement(tag);
+    x.innerHTML = html;
+    return x;
+}
+
+
+function fillPokemonList(search, data) {
+    let pkmnlist = document.getElementById("pkmnlist");
+
+    for (var pkmn of data) {
+        console.log(pkmn["name"]);
+        // TODO: Implement search
+        var pkmnrow = document.createElement("div");
+        pkmnrow.id = pkmn["name"];
+        pkmnrow.className = "pokemon-row";
+        
+        var pkmntitle = document.createElement("div");
+        pkmntitle.className = "pokemon-title";
+        // TODO: Implement unique background according to type
+        pkmntitle.style.background = "#F7D02C";
+        pkmntitle.innerHTML = "<h2 class=\"pokemon-name\">" + pkmn["name"] + " #" + pkmn["dexno"] + "</h2>";
+        pkmnrow.appendChild(pkmntitle);
+        
+        var pkmnpicture = document.createElement("div");
+        pkmnpicture.className = "pokemon-picture";
+        pkmnpicture.innerHTML = "<img src=\"images/" + pkmn["gif"] + "\">";
+        pkmnrow.appendChild(pkmnpicture);
+
+        var pkmnnature = document.createElement("div");
+        pkmnnature.className = "pokemon-nature";
+        pkmnnature.appendChild(createElemWithHtml("h4", "Info"));
+        var naturetable = document.createElement("table");
+        var nfirstrow = document.createElement("tr");
+        nfirstrow.appendChild(createElemWithHtml("th", "Typ"));
+        // TODO: Implement handling of second type
+        nfirstrow.appendChild(createElemWithHtml("td", pkmn["type_one"]));
+        naturetable.appendChild(nfirstrow);
+        
+        var nsecondrow = document.createElement("tr");
+        nsecondrow.appendChild(createElemWithHtml("th", "Wesen"));
+        nsecondrow.appendChild(createElemWithHtml("td", pkmn["nature"]));
+        naturetable.appendChild(nsecondrow);
+        
+        var nthirdrow = document.createElement("tr");
+        nthirdrow.appendChild(createElemWithHtml("th", "Fähigkeit"));
+        nthirdrow.appendChild(createElemWithHtml("td", pkmn["ability"]));
+        naturetable.appendChild(nthirdrow);
+
+        var nfourthrow = document.createElement("tr");
+        nfourthrow.appendChild(createElemWithHtml("th", "Item"));
+        nfourthrow.appendChild(createElemWithHtml("td", pkmn["item"]));
+        naturetable.appendChild(nfourthrow);
+        pkmnnature.appendChild(naturetable);
+        pkmnrow.appendChild(pkmnnature);
+
+        var pkmnwerte = document.createElement("div");
+        pkmnwerte.className = "pokemon-werte";
+        pkmnwerte.appendChild(createElemWithHtml("h4", "Werte"));
+        var wertetable = document.createElement("table");
+        var wertehead = document.createElement("thead");
+        var werteheadrow = document.createElement("tr");
+        werteheadrow.appendChild(document.createElement("th"));
+        werteheadrow.appendChild(createElemWithHtml("th", "DV"));
+        werteheadrow.appendChild(createElemWithHtml("th", "EV"));
+        werteheadrow.appendChild(document.createElement("th"));
+        werteheadrow.appendChild(createElemWithHtml("th", "DV"));
+        werteheadrow.appendChild(createElemWithHtml("th", "EV"));
+        wertehead.appendChild(werteheadrow);
+        wertetable.appendChild(wertehead);
+        
+        var wertebody = document.createElement("tbody");
+        var wbodyfirstrow = document.createElement("tr");
+        wbodyfirstrow.appendChild(createElemWithHtml("th", "KP"));
+        wbodyfirstrow.appendChild(createElemWithHtml("td", pkmn["DV"]["KP"]));
+        wbodyfirstrow.appendChild(createElemWithHtml("td", pkmn["EV"]["KP"]));
+
+        wbodyfirstrow.appendChild(createElemWithHtml("th", "SP. ATK"));
+        wbodyfirstrow.appendChild(createElemWithHtml("td", pkmn["DV"]["SP.ATK"]));
+        wbodyfirstrow.appendChild(createElemWithHtml("td", pkmn["EV"]["SP.ATK"]));
+        wertebody.appendChild(wbodyfirstrow);
+        
+        var wbodysecondrow = document.createElement("tr");
+        wbodysecondrow.appendChild(createElemWithHtml("th", "ATK"));
+        wbodysecondrow.appendChild(createElemWithHtml("td", pkmn["DV"]["ATK"]));
+        wbodysecondrow.appendChild(createElemWithHtml("td", pkmn["EV"]["ATK"]));
+
+        wbodysecondrow.appendChild(createElemWithHtml("th", "SP. DEF"));
+        wbodysecondrow.appendChild(createElemWithHtml("td", pkmn["DV"]["SP.DEF"]));
+        wbodysecondrow.appendChild(createElemWithHtml("td", pkmn["EV"]["SP.DEF"]));
+        wertebody.appendChild(wbodysecondrow);
+        
+        var wbodythirdrow = document.createElement("tr");
+        wbodythirdrow.appendChild(createElemWithHtml("th", "DEF"));
+        wbodythirdrow.appendChild(createElemWithHtml("td", pkmn["DV"]["DEF"]));
+        wbodythirdrow.appendChild(createElemWithHtml("td", pkmn["EV"]["DEF"]));
+
+        wbodythirdrow.appendChild(createElemWithHtml("th", "INIT"));
+        wbodythirdrow.appendChild(createElemWithHtml("td", pkmn["DV"]["INIT"]));
+        wbodythirdrow.appendChild(createElemWithHtml("td", pkmn["EV"]["INIT"]));
+        wertebody.appendChild(wbodythirdrow);
+        wertetable.appendChild(wertebody);
+        pkmnwerte.appendChild(wertetable);
+        pkmnrow.appendChild(pkmnwerte);
+
+
+        var pkmnattacks = document.createElement("div");
+        pkmnattacks.className = "pokemon-attacken";
+        pkmnattacks.appendChild(createElemWithHtml("h4", "Attacken"));
+
+        var attacktable = document.createElement("table");
+        attacktable.appendChild(createElemWithHtml("tr", "<td>" + pkmn["attacks"][0] + "</td>"));
+        attacktable.appendChild(createElemWithHtml("tr", "<td>" + pkmn["attacks"][1] + "</td>"));
+        attacktable.appendChild(createElemWithHtml("tr", "<td>" + pkmn["attacks"][2] + "</td>"));
+        attacktable.appendChild(createElemWithHtml("tr", "<td>" + pkmn["attacks"][3] + "</td>"));
+        pkmnattacks.appendChild(attacktable);
+        pkmnrow.appendChild(pkmnattacks);
+
+        pkmnlist.appendChild(pkmnrow);
+        
     
+    
+    }
+
+   
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    getPkmnData("data/pkmn.json", "");
+
     document.getElementById("searchBox").addEventListener("keydown", function(e) {
-        fillPokemonList(document.getElementById("searchBox").value);
+        getPkmnData("data/pkmn.json", document.getElementById("searchBox").value);
     });
 
 });
