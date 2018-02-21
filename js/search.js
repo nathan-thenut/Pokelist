@@ -1,9 +1,10 @@
 function getPkmnData(url, search) {
+    
     $.getJSON(url, function(json) {
         console.log(json);
         fillPokemonList(search, json);
     });
-
+  
 }
 
 
@@ -17,6 +18,11 @@ function createElemWithHtml(tag, html) {
 function fillPokemonList(search, data) {
     let pkmnlist = document.getElementById("pkmnlist");
 
+    /*while (pkmnlist.hasChildNodes()) {
+        pkmnlist.removeChild(node.lastChild);
+    }*/
+    $(".pokemon-row").remove();
+
     for (var pkmn of data) {
         console.log(pkmn["name"]);
         // TODO: Implement search
@@ -26,8 +32,13 @@ function fillPokemonList(search, data) {
         
         var pkmntitle = document.createElement("div");
         pkmntitle.className = "pokemon-title";
-        // TODO: Implement unique background according to type
-        pkmntitle.style.background = "#F7D02C";
+        
+        if (pkmn["type_one"] && pkmn["type_two"]) {
+            pkmntitle.style.background = "linear-gradient(to right, " + window.type_colors[pkmn["type_one"]] + ", " + window.type_colors[pkmn["type_two"]] + ")";
+        } else {
+            pkmntitle.style.background = window.type_colors[pkmn["type_one"]];
+        }
+        
         pkmntitle.innerHTML = "<h2 class=\"pokemon-name\">" + pkmn["name"] + " #" + pkmn["dexno"] + "</h2>";
         pkmnrow.appendChild(pkmntitle);
         
@@ -42,8 +53,12 @@ function fillPokemonList(search, data) {
         var naturetable = document.createElement("table");
         var nfirstrow = document.createElement("tr");
         nfirstrow.appendChild(createElemWithHtml("th", "Typ"));
-        // TODO: Implement handling of second type
-        nfirstrow.appendChild(createElemWithHtml("td", pkmn["type_one"]));
+        
+        if (pkmn["type_one"] && pkmn["type_two"]) {
+            nfirstrow.appendChild(createElemWithHtml("td", pkmn["type_one"] + " / " + pkmn["type_two"]));
+        } else {
+            nfirstrow.appendChild(createElemWithHtml("td", pkmn["type_one"]));
+        }
         naturetable.appendChild(nfirstrow);
         
         var nsecondrow = document.createElement("tr");
@@ -135,7 +150,13 @@ function fillPokemonList(search, data) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    getPkmnData("data/pkmn.json", "");
+    
+    $.getJSON("data/type_colors.json", function(json) {
+        console.log(json);
+        window.type_colors = json;
+        getPkmnData("data/pkmn.json", "");
+    });
+    
 
     document.getElementById("searchBox").addEventListener("keydown", function(e) {
         getPkmnData("data/pkmn.json", document.getElementById("searchBox").value);
