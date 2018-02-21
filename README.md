@@ -7,3 +7,4 @@ A Website that displays the data of your Pokemon.
 * ~~Read data from a json file~~
 * ~~Create a script to make a json file with the data~~
 * Make a fitting favicon
+* Documentation
