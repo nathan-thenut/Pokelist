@@ -17,25 +17,30 @@ function createElemWithHtml(tag, html) {
 
 function matchFilter(filter, pkmn) {
 
-    console.log(filter[0]);
-    switch (filter[0]) {
-        case "Name":
-            return pkmn["name"] == filter[1];
+    console.log(filter);
+    switch (filter) {
+        case pkmn["name"]:
+            return true;
             break;
-        case "Typ":
-            return (pkmn["type_one"] == filter[1] || pkmn["type_two"] == filter[1]);
+        case pkmn["type_one"]:
+            return true;
             break;
-        case "Wesen":
-            return pkmn["nature"] == filter[1];
+        case pkmn["type_two"]:
+            return true;
             break;
-        case "Fähigkeit":
-            return pkmn["ability"] == filter[1];
+        case pkmn["nature"]:
+            return true; 
             break;
-        case "Item":
-            pkmn["item"] == filter[1];
+        case pkmn["ability"]:
+            return true;
+            break;
+        case pkmn["item"]:
+            return true;
+            break;
+        case pkmn["dexno"]:
+            return true;
             break;
         default:
-            alert("Error: Invalid Filter");
             return false;
     }
 }
@@ -56,12 +61,9 @@ function match(searchInput, pkmn) {
     // Get all filters
     var filters = [];
     if (searchInput.includes(" ")) {
-        var tmp = searchInput.split(" ");
-        for (var i = 0; i < tmp.length; i++) {
-            filters.push(tmp[i].split(":"));
-        }    
+        filters = searchInput.split(" ");
     } else {
-        filters.push(searchInput.split(":"));
+        filters.push(searchInput);
     }
     
     console.log("Filters: ");
@@ -86,7 +88,7 @@ function fillPokemonList(search, data) {
     for (var pkmn of data) {
         console.log(pkmn["name"]);
         console.log("Match: " + match(search, pkmn));
-        if (match(search,pkmn)) {
+        if (match(search, pkmn)) {
             var pkmnrow = document.createElement("div");
             pkmnrow.id = pkmn["name"];
             pkmnrow.className = "pokemon-row";
