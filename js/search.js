@@ -17,32 +17,27 @@ function createElemWithHtml(tag, html) {
 
 function matchFilter(filter, pkmn) {
 
-    console.log(filter);
-    switch (filter) {
-        case pkmn["name"]:
+    //console.log(filter);
+    data = [pkmn["name"], pkmn["type_one"], pkmn["type_two"], pkmn["nature"], pkmn["ability"], pkmn["item"], pkmn["dexno"]];
+
+    //console.log(data);
+
+    for (var i = 0; i < data.length; i++) {
+        //console.log(data[i]);
+        if (data[i].includes(filter)) {
             return true;
-            break;
-        case pkmn["type_one"]:
-            return true;
-            break;
-        case pkmn["type_two"]:
-            return true;
-            break;
-        case pkmn["nature"]:
-            return true; 
-            break;
-        case pkmn["ability"]:
-            return true;
-            break;
-        case pkmn["item"]:
-            return true;
-            break;
-        case pkmn["dexno"]:
-            return true;
-            break;
-        default:
-            return false;
+        }
     }
+
+    for (var i = 0; i < pkmn["attacks"].length; i++) {
+        //console.log(pkmn["attacks"][i]);
+        if (pkmn["attacks"][i].includes(filter)) {
+            return true;
+        }
+    }
+
+    return false;
+
 }
 
 

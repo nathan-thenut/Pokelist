@@ -54,6 +54,7 @@
 
 .pokemon-name {
     margin-bottom: 0px;
+    margin-left: 5px;
 }
 
 @media (min-width: 720px) {
